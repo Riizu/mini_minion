@@ -3,6 +3,7 @@ require 'rails_helper'
 describe "Status Endpoint" do
   it "Sends status information for the server" do
     status = create(:status, version: "0.0.1")
+    formatted_created_at = status.created_at.strftime("%m/%d/%Y at %I:%M%p")
 
     get "/api/v1/status"
 
@@ -11,6 +12,6 @@ describe "Status Endpoint" do
     parsed_status = JSON.parse(response.body)
 
     expect(parsed_status["version"]).to eq "0.0.1"
-    expect(parsed_status["last_update"]).to eq status.created_at
+    expect(parsed_status["last_update"]).to eq formatted_created_at
   end
 end
