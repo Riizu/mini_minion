@@ -3,7 +3,7 @@ FactoryGirl.define do
     version
   end
 
-  sequence :vesion do |n|
+  sequence :version do |n|
     "0.0.#{n}"
   end
 end

@@ -10,7 +10,7 @@ describe "Status Endpoint" do
 
     parsed_status = JSON.parse(response.body)
 
-    expect(parsed_status.version).to eq "0.0.1"
-    expect(parsed_status.last_update).to eq status.created_at
+    expect(parsed_status["version"]).to eq "0.0.1"
+    expect(parsed_status["last_update"]).to eq status.created_at
   end
 end
