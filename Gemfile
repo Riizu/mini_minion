@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
+gem 'figaro'
 
 group :development, :test do
   gem 'byebug', platform: :mri
