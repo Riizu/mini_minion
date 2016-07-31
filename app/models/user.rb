@@ -5,8 +5,7 @@ class User < ActiveRecord::Base
     @@fb_service ||= FacebookService.new
   end
 
-  def self.login_with_facebook(code)
-    access_token = facebook_service.get_access_token(code)
+  def self.login_with_facebook(access_token)
     uid = facebook_service.get_uid(access_token)
     user_result = facebook_service.get_user(uid, access_token)
     User.find_or_create_by(uid: user_result["id"]) {|u| u.name = user_result["name"]}
