@@ -33,7 +33,7 @@ class Minion < ActiveRecord::Base
     end
 
     def hungry?
-      return true if Time.now > self.last_ate
+      return true if Time.now >= (self.last_ate + 10.minutes)
     end
 
     def calculate_new_health

@@ -85,4 +85,12 @@ RSpec.describe Minion, type: :model do
 
     expect(minion.current_happiness).to eq 80
   end
+
+  it "Should not decrease in happiness if it has ate within 10 minutes" do
+    minion = create(:minion, last_ate: (Time.now - 7.minutes))
+
+    minion.check_hunger
+
+    expect(minion.current_happiness).to eq 100
+  end
 end
