@@ -12,23 +12,12 @@ import CreateMinionScene from './components/scenes/create_minion';
 class MiniMinionClient extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      jwt: ''
-    }
-  }
-
-  check_for_valid_JWT() {
-    if(this.state.jwt !== null) {
-      return "minion"
-    } else {
-      return "initial"
-    }
   }
 
   render() {
     return (
       <Navigator
-        initialRoute={{id: "create" }}
+        initialRoute={{id: "initial" }}
         renderScene={this.navigatorRenderScene}/>
     )
   }

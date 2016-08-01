@@ -39,7 +39,6 @@ export default class MinionScene extends Component {
   getMinion(jwt) {
     fetch('http://10.0.2.2:3000/api/v1/minion', {
       headers: {
-        //'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxMDIwOTc2MDI4MTcxNDYwMSIsImV4cCI6MTQ3MDEyNjMyMn0.8c_EhAjBjK4ltZqE8oDFn0ocCx6TDu2I7pPwXQN9zJs'
         'Authorization': jwt
       }
     })
