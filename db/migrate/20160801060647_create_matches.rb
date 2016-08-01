@@ -11,9 +11,9 @@ class CreateMatches < ActiveRecord::Migration[5.0]
       t.integer :map_id
       t.string :season
       t.string :version
-      t.string :participants
-      t.string :blue_team
-      t.string :red_team
+      t.text :participants
+      t.text :blue_team
+      t.text :red_team
 
       t.timestamps
     end

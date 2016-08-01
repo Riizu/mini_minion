@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20160801060858) do
     t.integer  "map_id"
     t.string   "season"
     t.string   "version"
-    t.string   "participants"
-    t.string   "blue_team"
-    t.string   "red_team"
+    t.text     "participants"
+    t.text     "blue_team"
+    t.text     "red_team"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160801060858) do
     t.integer  "total_health",      default: 150
     t.integer  "total_stamina",     default: 100
     t.integer  "total_happiness",   default: 100
-    t.datetime "last_ate",          default: '2016-08-01 05:54:11'
+    t.datetime "last_ate",          default: '2016-08-01 06:51:52'
     t.integer  "user_id"
     t.index ["user_id"], name: "index_minions_on_user_id", using: :btree
   end
