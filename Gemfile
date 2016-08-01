@@ -6,12 +6,15 @@ gem 'puma', '~> 3.0'
 gem 'figaro'
 gem 'faraday'
 gem "active_model_serializers", github: "rails-api/active_model_serializers"
+gem 'jwt'
 
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'simplecov'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 group :development do
