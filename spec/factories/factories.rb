@@ -7,6 +7,12 @@ FactoryGirl.define do
     name
     uid
     status 0
+
+    trait :with_minion do
+      after :create do |user|
+        FactoryGirl.create(:minion, user: user)
+      end
+    end
   end
 
   factory :minion do
