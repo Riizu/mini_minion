@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Alert,
+  Navigator,
   AsyncStorage
 } from 'react-native';
 
-var Status = require('./components/status');
-var Login = require('./components/login');
+import InitialScene from './components/scenes/initial';
+import MinionScene from './components/scenes/minion';
 
 class MiniMinionClient extends Component {
   constructor(props) {
@@ -19,7 +16,15 @@ class MiniMinionClient extends Component {
     }
   }
 
-  componentDidMount() {
+  check_for_valid_JWT() {
+    if(this.state.jwt !== null) {
+      return "minion"
+    } else {
+      return "initial"
+    }
+  }
+
+  componentWillMount() {
     AsyncStorage.getItem("jwt").then((value) => {
         this.setState({jwt: value});
     }).done();
@@ -27,25 +32,21 @@ class MiniMinionClient extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Status/>
-        <Login/>
-        <Text style={styles.jwt}>jwt: {this.state.jwt}</Text>
-      </View>
-    );
+      <Navigator
+        initialRoute={{id: this.check_for_valid_JWT() }}
+        renderScene={this.navigatorRenderScene}/>
+    )
   }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF'
-  },
-  jwt: {
-    position: 'absolute',
-    top: 0,
-    left: 0
-  }
-});
+  navigatorRenderScene(route, navigator) {
+   _navigator = navigator;
+   switch (route.id) {
+     case 'initial':
+       return (<InitialScene navigator={navigator}/>);
+     case 'minion':
+       return (<MinionScene navigator={navigator}/>);
+   }
+ }
+}
 
 AppRegistry.registerComponent('MiniMinionClient', () => MiniMinionClient);
