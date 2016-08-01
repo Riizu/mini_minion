@@ -9,6 +9,10 @@ FactoryGirl.define do
     status 0
   end
 
+  factory :minion do
+    name
+  end
+
   sequence :name do |n|
     "Name #{n}"
   end

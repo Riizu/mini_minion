@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801040101) do
+ActiveRecord::Schema.define(version: 20160801040938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "minions", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "level",             default: 1
+    t.integer  "xp",                default: 0
+    t.integer  "current_health",    default: 150
+    t.integer  "current_stamina",   default: 100
+    t.integer  "current_happiness", default: 100
+    t.integer  "total_health",      default: 150
+    t.integer  "total_stamina",     default: 100
+    t.integer  "total_happiness",   default: 100
+    t.datetime "last_ate",          default: '2016-08-01 05:22:07'
+  end
 
   create_table "statuses", force: :cascade do |t|
     t.string   "version"
