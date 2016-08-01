@@ -21,3 +21,6 @@
 
 # Ignore SimpleCov coverage data
 /coverage
+
+# Ignore VCR data
+/spec/vcr
