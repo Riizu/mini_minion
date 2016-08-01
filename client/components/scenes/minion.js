@@ -21,8 +21,6 @@ export default class MinionScene extends Component {
     })
   }
 
-  
-
   render() {
     return(
       <View>

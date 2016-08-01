@@ -19,6 +19,12 @@ class Login extends Component {
     super(props);
   }
 
+  navMinion(){
+    this.props.navigator.push({
+      id: 'minion'
+    })
+  }
+
   getJWT(access_token) {
     fetch(("http://10.0.2.2:3000/access_token?code=" + access_token))
     .then((response) => response.json())
@@ -45,6 +51,7 @@ class Login extends Component {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
                     this.getJWT(data.accessToken.toString())
+                    this.navMinion();
                   }
                 )
               }

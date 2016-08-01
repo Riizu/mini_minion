@@ -33,7 +33,7 @@ class MiniMinionClient extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{id: this.check_for_valid_JWT() }}
+        initialRoute={{id: "initial" }}
         renderScene={this.navigatorRenderScene}/>
     )
   }

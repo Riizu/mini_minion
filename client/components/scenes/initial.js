@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
-  Alert,
   StyleSheet,
   AsyncStorage
 } from 'react-native';
@@ -18,12 +16,6 @@ export default class InitialScene extends Component {
     }
   }
 
-  navMinion(){
-    this.props.navigator.push({
-      id: 'minion'
-    })
-  }
-
   componentDidMount() {
     AsyncStorage.getItem("jwt").then((value) => {
         this.setState({jwt: value});
@@ -33,10 +25,8 @@ export default class InitialScene extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <Text>{this.props.title}</Text>
         <Status/>
-        <Login/>
-        <Text style={styles.jwt}>jwt: {this.state.jwt}</Text>
+        <Login navigator={this.props.navigator}/>
       </View>
     )
   }
@@ -46,10 +36,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF'
-  },
-  jwt: {
-    position: 'absolute',
-    top: 0,
-    left: 0
   }
 });
