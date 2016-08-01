@@ -13,6 +13,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'simplecov'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 group :development do

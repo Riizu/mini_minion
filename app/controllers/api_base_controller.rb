@@ -1,5 +1,5 @@
 class ApiBaseController < ActionController::API
-  before_action :allow_cross_origin_requests, if: proc { Rails.env.development? }
+  before_action :allow_cross_origin_requests
 
   def preflight
     render nothing: true

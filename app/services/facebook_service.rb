@@ -3,16 +3,6 @@ class FacebookService
     JSON.parse(response.body)
   end
 
-  def get_access_token(code)
-    response = Faraday.get("https://graph.facebook.com/v2.3/oauth/access_token") do |conn|
-      conn.params["client_id"] = ENV['FACEBOOK_KEY']
-      conn.params["redirect_uri"] = ENV['FACEBOOK_CALLBACK']
-      conn.params["client_secret"] = ENV['FACEBOOK_SECRET']
-      conn.params["code"] = code
-    end
-    parse(response)["access_token"]
-  end
-
   def get_uid(access_token)
     response = Faraday.get("https://graph.facebook.com/debug_token") do |conn|
       conn.params["input_token"] = access_token
