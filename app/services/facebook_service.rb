@@ -1,8 +1,4 @@
-class FacebookService
-  def parse(response)
-    JSON.parse(response.body)
-  end
-
+class FacebookService < BaseService
   def get_uid(access_token)
     response = Faraday.get("https://graph.facebook.com/debug_token") do |conn|
       conn.params["input_token"] = access_token
