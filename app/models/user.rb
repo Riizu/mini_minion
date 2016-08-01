@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   validates :uid, presence: true, uniqueness: true
   validates :name, presence: true
+  validates :status, presence: true
+
+  enum status: [ :registered, :active, :banned, :inactive ]
 
   def self.facebook_service
     @@fb_service ||= FacebookService.new

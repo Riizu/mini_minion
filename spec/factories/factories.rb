@@ -6,6 +6,7 @@ FactoryGirl.define do
   factory :user do
     name
     uid
+    status 0
   end
 
   sequence :name do |n|
