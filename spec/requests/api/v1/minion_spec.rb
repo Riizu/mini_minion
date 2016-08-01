@@ -24,4 +24,20 @@ describe "Minion Endpoint" do
     expect(parsed_minion["last_ate"]).to eq user.minion.last_ate.to_s
     expect(parsed_minion["user_id"]).to eq nil
   end
+
+  it "returns the minion for the current user" do
+    user = create(:user)
+    jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i},
+                Rails.application.secrets.secret_key_base)
+
+    post "/api/v1/minion", headers: {'Authorization' => jwt},
+                           params: {name: "Test"}
+
+    expect(response).to be_success
+
+    parsed_minion = JSON.parse(response.body)
+
+    expect(parsed_minion["name"]).to eq "Test"
+    expect(user.minion.name).to eq "Test"
+  end
 end

@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
       resources :status, only: [:index]
-      resources :minion, only: [:index]
-      
+      resources :minion, only: [:index, :create]
+
       get 'current_user', to: "current_user#index"
     end
   end
