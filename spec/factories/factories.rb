@@ -14,6 +14,22 @@ FactoryGirl.define do
     user
   end
 
+  factory :match do
+    region "MyString"
+    platform_id "MyString"
+    mode "MyString"
+    type ""
+    creation 1
+    duration 1
+    queue_type "MyString"
+    map_id 1
+    season "MyString"
+    version "MyString"
+    participants "MyString"
+    blue_team "MyString"
+    red_team "MyString"
+  end
+
   sequence :name do |n|
     "Name #{n}"
   end

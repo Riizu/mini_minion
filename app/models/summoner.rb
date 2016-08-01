@@ -4,4 +4,7 @@ class Summoner < ApplicationRecord
   validates :level, presence: true
 
   validates_presence_of :user_id
+
+  has_many :matchlists
+  has_many :matches, through: :matchlists
 end

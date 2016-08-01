@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801054807) do
+ActiveRecord::Schema.define(version: 20160801060858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "matches", force: :cascade do |t|
+    t.string   "region"
+    t.string   "platform_id"
+    t.string   "mode"
+    t.string   "type"
+    t.integer  "creation"
+    t.integer  "duration"
+    t.string   "queue_type"
+    t.integer  "map_id"
+    t.string   "season"
+    t.string   "version"
+    t.string   "participants"
+    t.string   "blue_team"
+    t.string   "red_team"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "matchlists", id: false, force: :cascade do |t|
+    t.integer "summoner_id"
+    t.integer "match_id"
+  end
 
   create_table "minions", force: :cascade do |t|
     t.string   "name"
