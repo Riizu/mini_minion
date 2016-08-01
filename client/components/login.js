@@ -51,7 +51,7 @@ class Login extends Component {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
                     this.getJWT(data.accessToken.toString())
-                    this.navMinion();
+                    this.navMinion()
                   }
                 )
               }

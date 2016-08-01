@@ -11,15 +11,6 @@ var Login = require('../login');
 export default class InitialScene extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      jwt: ""
-    }
-  }
-
-  componentDidMount() {
-    AsyncStorage.getItem("jwt").then((value) => {
-        this.setState({jwt: value});
-    }).done();
   }
 
   render() {

@@ -12,7 +12,7 @@ class MiniMinionClient extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jwt: ""
+      jwt: ''
     }
   }
 
@@ -22,12 +22,6 @@ class MiniMinionClient extends Component {
     } else {
       return "initial"
     }
-  }
-
-  componentWillMount() {
-    AsyncStorage.getItem("jwt").then((value) => {
-        this.setState({jwt: value});
-    }).done();
   }
 
   render() {
