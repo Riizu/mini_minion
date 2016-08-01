@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:uid) }
+  it { should validate_presence_of(:status) }
+
+  it { should have_one(:minion) }
+  it { should have_one(:summoner) }
+
+  it { should define_enum_for(:status).with([:registered, :active, :banned, :inactive]) }
 
   it "Should validate uniqueness of uid" do
     create(:user)
