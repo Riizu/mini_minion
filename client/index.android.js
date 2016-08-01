@@ -7,6 +7,7 @@ import {
 
 import InitialScene from './components/scenes/initial';
 import MinionScene from './components/scenes/minion';
+import CreateMinionScene from './components/scenes/create_minion';
 
 class MiniMinionClient extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class MiniMinionClient extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{id: "initial" }}
+        initialRoute={{id: "create" }}
         renderScene={this.navigatorRenderScene}/>
     )
   }
@@ -39,6 +40,8 @@ class MiniMinionClient extends Component {
        return (<InitialScene navigator={navigator}/>);
      case 'minion':
        return (<MinionScene navigator={navigator}/>);
+     case 'create':
+       return (<CreateMinionScene navigator={navigator}/>);
    }
  }
 }
