@@ -1,6 +1,10 @@
 class Minion < ActiveRecord::Base
   validates :name, presence: true
 
+  validates_presence_of :user_id
+
+  belongs_to :user
+
   def level_up
     new_health = calculate_new_health
     update_attributes(total_health: new_health)

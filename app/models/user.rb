@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :status, presence: true
 
+  has_one :minion
+  has_one :summoner
+
   enum status: [ :registered, :active, :banned, :inactive ]
 
   def self.facebook_service

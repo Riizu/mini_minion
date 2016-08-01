@@ -4,8 +4,6 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:uid) }
   it { should validate_presence_of(:status) }
-  it { should validate_presence_of(:summoner_id) }
-  it { should validate_presence_of(:minion_id) }
 
   it { should have_one(:minion) }
   it { should have_one(:summoner) }

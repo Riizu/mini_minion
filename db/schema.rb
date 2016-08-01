@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801054000) do
+ActiveRecord::Schema.define(version: 20160801054807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,9 @@ ActiveRecord::Schema.define(version: 20160801054000) do
     t.integer  "total_health",      default: 150
     t.integer  "total_stamina",     default: 100
     t.integer  "total_happiness",   default: 100
-    t.datetime "last_ate",          default: '2016-08-01 05:22:07'
+    t.datetime "last_ate",          default: '2016-08-01 05:54:11'
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_minions_on_user_id", using: :btree
   end
 
   create_table "statuses", force: :cascade do |t|
@@ -40,6 +42,8 @@ ActiveRecord::Schema.define(version: 20160801054000) do
     t.integer  "level"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_summoners_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -51,4 +55,6 @@ ActiveRecord::Schema.define(version: 20160801054000) do
     t.index ["uid"], name: "index_users_on_uid", using: :btree
   end
 
+  add_foreign_key "minions", "users"
+  add_foreign_key "summoners", "users"
 end

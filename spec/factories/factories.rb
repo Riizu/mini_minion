@@ -11,6 +11,7 @@ FactoryGirl.define do
 
   factory :minion do
     name
+    user
   end
 
   sequence :name do |n|
