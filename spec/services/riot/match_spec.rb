@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe MatchService do
-  it "can pull a match list for a given summoner", :vcr => { :cassette_name => "match_list" } do
+  it "can pull a match list for a given summoner", :vcr do
     ms = MatchService.new
 
     matchlist = ms.find_matchlist(20257398)
@@ -18,7 +18,7 @@ RSpec.describe MatchService do
     expect(first_match["role"]).to eq "NONE"
   end
 
-  it "can pull a match by match ID", :vcr => { :cassette_name => "match" } do
+  it "can pull a match by match ID", :vcr do
     ms = MatchService.new
 
     match = ms.find_match(2082171522)

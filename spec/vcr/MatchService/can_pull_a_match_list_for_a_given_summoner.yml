@@ -27,20 +27,20 @@ http_interactions:
       Content-Type:
       - application/json;charset=utf-8
       Date:
-      - Mon, 01 Aug 2016 01:23:33 GMT
+      - Tue, 02 Aug 2016 21:40:16 GMT
       Vary:
       - Accept-Encoding, User-Agent
       X-Newrelic-App-Data:
-      - PxQFWFFSDwQTUVVSBQYBVkYdFGQHBDcQUQxLA1tMXV1dORYzVBBGBxdCdhUSEVFRRRAEPhhQRw84HlpcDjpMDFE+FxQKFgZuHAhYFVIJXwsXQmtOBBoVQEUJDA1ZVEU6S0JDXg8JDQdCK1xAFAgaAh9VF1EFUgVSVAAEVUpOCR8SUVNWBAgOVwVSBwZaVFBQBEAUBFlUR1du
+      - PxQFWFFSDwQTUVVSBQYBVkYdFGQHBDcQUQxLA1tMXV1dORYzVBBGBxdCdhUSEVFRRRAEPhhQRw84HlpcDjpMDFE+FxQKFgZuHAhYFVIJXwsXQmtOBBoVQEUJDA1ZVEU6S0JDXg8JDQdCK1xAFAgaAh9VF1AHVgVXVQQDTUtSFBEBV1EBAFJVUFJUBApVVAIBEk5eA1RLUW8=
       X-Rate-Limit-Count:
-      - 1:10,3:600
-      Content-Length:
-      - '211'
+      - 1:10,1:600
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
     body:
       encoding: ASCII-8BIT
       string: '{"matches":[{"region":"NA","platformId":"NA1","matchId":2082171522,"champion":33,"queue":"TEAM_BUILDER_DRAFT_RANKED_5x5","season":"SEASON2016","timestamp":1454047672406,"lane":"JUNGLE","role":"NONE"}],"startIndex":0,"endIndex":1,"totalGames":1}'
     http_version: 
-  recorded_at: Mon, 01 Aug 2016 01:23:34 GMT
+  recorded_at: Tue, 02 Aug 2016 21:40:16 GMT
 recorded_with: VCR 3.0.3

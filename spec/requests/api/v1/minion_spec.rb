@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Minion Endpoint" do
-  it "returns the minion for the current user" do
+  it "returns the minion for the current user", :vcr do
     user = create(:user, :with_minion)
     jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i},
                 Rails.application.secrets.secret_key_base)
@@ -25,7 +25,7 @@ describe "Minion Endpoint" do
     expect(parsed_minion["user_id"]).to eq nil
   end
 
-  it "returns the minion for the current user" do
+  it "returns the minion for the current user", :vcr do
     user = create(:user)
     jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i},
                 Rails.application.secrets.secret_key_base)
