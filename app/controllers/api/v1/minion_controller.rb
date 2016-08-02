@@ -4,6 +4,7 @@ class Api::V1::MinionController < SecureApiBaseController
   end
 
   def create
+    current_user.add_summoner(params[:summoner_name])
     current_user.update_attributes(status: :active)
     render json: Minion.create(name: params[:name], user: current_user)
   end

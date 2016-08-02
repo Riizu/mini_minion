@@ -58,8 +58,9 @@ export default class CreateMinionScene extends Component {
         <TextInput
           style={{height: 40}}
           placeholder="Enter Summoner Name"
-          onChangeText={(text) => this.setState({name: text})}
+          onChangeText={(text) => this.setState({summoner_name: text})}
         />
+        <Text>{this.state.summoner_name}</Text>
         <TouchableHighlight onPress={() => this.onSubmitMinion()}>
           <Text>Press this button to submit</Text>
         </TouchableHighlight>
