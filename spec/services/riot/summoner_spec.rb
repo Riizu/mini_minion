@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SummonerService, :vcr => { :cassette_name => "summoner" } do
+RSpec.describe SummonerService, :vcr do
   it "can pull a single summoner's data" do
     ss = SummonerService.new
 

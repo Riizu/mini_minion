@@ -27,13 +27,13 @@ http_interactions:
       Content-Type:
       - application/json;charset=utf-8
       Date:
-      - Mon, 01 Aug 2016 01:23:34 GMT
+      - Tue, 02 Aug 2016 21:40:17 GMT
       Vary:
       - Accept-Encoding, User-Agent
       X-Newrelic-App-Data:
-      - PxQFWFFSDwQTUVVSBQYBVkYdFGQHBDcQUQxLA1tMXV1dORYzVBBGBxdCdhUSEVFRRRAEPhhQRw84HlpcDjpMDFE+FxQKFgZuHAhYFVIJb00JV0MCDipcERxUT1IbARlWUQMHBltRV1ccTwlOGgFWB1ZQCVJUUgVbUAEBAFdBFFVRCBIHag==
+      - PxQFWFFSDwQTUVVSBQYBVkYdFGQHBDcQUQxLA1tMXV1dORYzVBBGBxdCdhUSEVFRRRAEPhhQRw84HlpcDjpMDFE+FxQKFgZuHAhYFVIJb00JV0MCDipcERxUT1IbARlWUgkDBFNfW1ccTwlOGl0FVwFVDVcBUVcGAgUAUAJBFFVRCBIHag==
       X-Rate-Limit-Count:
-      - 2:10,4:600
+      - 2:10,2:600
       Transfer-Encoding:
       - chunked
       Connection:
@@ -44,5 +44,5 @@ http_interactions:
         Crab","matchHistoryUri":"/v1/stats/player_history/NA/36758864","profileIcon":0}},{"participantId":6,"player":{"summonerId":34011842,"summonerName":"TheTildozer","matchHistoryUri":"/v1/stats/player_history/NA1/44731339","profileIcon":938}},{"participantId":7,"player":{"summonerId":64859494,"summonerName":"Choppagunna3000","matchHistoryUri":"/v1/stats/player_history/NA1/226815792","profileIcon":983}},{"participantId":8,"player":{"summonerId":50707833,"summonerName":"Zodiac
         Senpai","matchHistoryUri":"/v1/stats/player_history/NA1/213470426","profileIcon":983}},{"participantId":9,"player":{"summonerId":29645215,"summonerName":"Aetheroid","matchHistoryUri":"/v1/stats/player_history/NA1/43890525","profileIcon":773}},{"participantId":10,"player":{"summonerId":64461127,"summonerName":"Varmina","matchHistoryUri":"/v1/stats/player_history/NA1/226790372","profileIcon":1016}}],"teams":[{"teamId":100,"winner":false,"firstBlood":true,"firstTower":true,"firstInhibitor":false,"firstBaron":false,"firstDragon":false,"firstRiftHerald":true,"towerKills":2,"inhibitorKills":0,"baronKills":0,"dragonKills":0,"riftHeraldKills":1,"vilemawKills":0,"dominionVictoryScore":0},{"teamId":200,"winner":true,"firstBlood":false,"firstTower":false,"firstInhibitor":false,"firstBaron":false,"firstDragon":true,"firstRiftHerald":false,"towerKills":5,"inhibitorKills":0,"baronKills":0,"dragonKills":3,"riftHeraldKills":0,"vilemawKills":0,"dominionVictoryScore":0}]}'
     http_version: 
-  recorded_at: Mon, 01 Aug 2016 01:23:34 GMT
+  recorded_at: Tue, 02 Aug 2016 21:40:17 GMT
 recorded_with: VCR 3.0.3

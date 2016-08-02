@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RiotService, :vcr => { :cassette_name => "riot" } do
+RSpec.describe RiotService, :vcr do
   it "has a base connection" do
     rs = RiotService.new
     url_prefix = rs.connection.url_prefix.to_s
