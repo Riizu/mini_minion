@@ -19,24 +19,21 @@ export default class MinionScene extends Component {
       current_happiness: "",
       total_health: "",
       total_stamina: "",
-      total_happiness: ""
+      total_happiness: "",
+      jwt: ""
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getData()
   }
 
   getData() {
-    AsyncStorage.getItem("jwt").then((value) => {
-      this.setState({jwt: value})
-      this.getMinion(value)
-    })
+    this.getMinion(this.props.jwt)
   }
 
-
   getMinion(jwt) {
-    fetch('http://10.0.2.2:3000/api/v1/minion', {
+    return fetch('http://10.0.2.2:3000/api/v1/minion', {
       headers: {
         'Authorization': jwt
       }

@@ -30,7 +30,7 @@ class MiniMinionClient extends Component {
      case 'create':
        return (<CreateMinionScene navigator={navigator}/>);
      case 'minion':
-       return (<MinionScene navigator={navigator}/>);
+       return (<MinionScene navigator={navigator} jwt={route.jwt}/>);
    }
  }
 }

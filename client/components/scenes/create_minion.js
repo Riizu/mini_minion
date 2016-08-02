@@ -12,18 +12,20 @@ export default class CreateMinionScene extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ""
+      name: "",
+      jwt: ""
     }
   }
 
   navMinion() {
     this.props.navigator.push({
-      id: 'minion'
+      id: 'minion',
+      jwt: this.state.jwt
     })
   }
 
   createMinion() {
-    fetch('http://10.0.2.2:3000/api/v1/minion?name=' + this.state.name,  {
+    return fetch('http://10.0.2.2:3000/api/v1/minion?name=' + this.state.name,  {
       method: 'POST',
       headers: {
         'Authorization': this.state.jwt,
@@ -38,8 +40,7 @@ export default class CreateMinionScene extends Component {
   }
 
   onSubmitMinion() {
-    this.createMinion()
-    this.navMinion()
+    this.createMinion().then(() => this.navMinion())
   }
 
   render() {
