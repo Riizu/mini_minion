@@ -23,7 +23,7 @@ class Login extends Component {
     if(status === "registered") {
       this.navCreateMinion();
     } else if(status === "active") {
-      //this.navMinion();
+      this.navMinion();
     }
   }
 
