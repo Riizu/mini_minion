@@ -4,8 +4,12 @@ import {
   Text,
   Alert,
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
+  TouchableHighlight,
+  Modal
 } from 'react-native';
+
+var ActionModal = require('../action_modal');
 
 export default class MinionScene extends Component {
   constructor(props) {
@@ -67,6 +71,7 @@ export default class MinionScene extends Component {
         <Text>Health: {this.state.current_health}/{this.state.total_health}</Text>
         <Text>Stamina: {this.state.current_stamina}/{this.state.total_stamina}</Text>
         <Text>Happiness: {this.state.current_happiness}/{this.state.total_happiness}</Text>
+        <ActionModal/>
       </View>
     )
   }
