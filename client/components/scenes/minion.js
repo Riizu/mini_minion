@@ -64,7 +64,6 @@ export default class MinionScene extends Component {
   render() {
     return(
       <View>
-        <Text>Jwt: {this.state.jwt}</Text>
         <Text>Name: {this.state.name}</Text>
         <Text>Level: {this.state.level}</Text>
         <Text>XP: {this.state.xp}</Text>

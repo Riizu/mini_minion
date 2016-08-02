@@ -46,7 +46,6 @@ export default class CreateMinionScene extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <Text>{this.state.jwt}</Text>
         <Text>Name:</Text>
         <TextInput
           style={{height: 40}}
