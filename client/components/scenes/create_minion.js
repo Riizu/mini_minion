@@ -13,7 +13,8 @@ export default class CreateMinionScene extends Component {
     super(props);
     this.state = {
       name: "",
-      jwt: ""
+      jwt: "",
+      summoner_name: ""
     }
   }
 
@@ -25,7 +26,7 @@ export default class CreateMinionScene extends Component {
   }
 
   createMinion() {
-    return fetch('http://10.0.2.2:3000/api/v1/minion?name=' + this.state.name,  {
+    return fetch('http://10.0.2.2:3000/api/v1/minion?name=' + this.state.name + '&summoner_name=' + this.state.summoner_name,  {
       method: 'POST',
       headers: {
         'Authorization': this.state.jwt,
@@ -47,11 +48,17 @@ export default class CreateMinionScene extends Component {
     return(
       <View style={styles.container}>
         <Text>Name:</Text>
+
         <TextInput
           style={{height: 40}}
-          placeholder="Enter Name Here"
+          placeholder="Enter Minion"
           onChangeText={(text) => this.setState({name: text})}
-          onSumbitEditing={() => this.onSubmitMinion()}
+        />
+
+        <TextInput
+          style={{height: 40}}
+          placeholder="Enter Summoner Name"
+          onChangeText={(text) => this.setState({name: text})}
         />
         <TouchableHighlight onPress={() => this.onSubmitMinion()}>
           <Text>Press this button to submit</Text>
