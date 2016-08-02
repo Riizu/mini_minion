@@ -17,16 +17,13 @@ var MiniMinionClient = require('../index.android');
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      current_user_status: ""
-    }
   }
 
-  determineNav() {
-    if(this.state.current_user_status == "registered") {
+  determineNav(status) {
+    if(status === "registered") {
       this.navCreateMinion();
-    } else if(this.state.current_user_status == "active") {
-      this.navMinion();
+    } else if(status === "active") {
+      //this.navMinion();
     }
   }
 
@@ -42,33 +39,37 @@ class Login extends Component {
     })
   }
 
-  setCurrentUser(access_token) {
-    this.getJwt(access_token).then((jwt) => {
-      fetch('http://10.0.2.2:3000/api/v1/current_user', {
-        headers: {
-          'Authorization': jwt
-        }
-      })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({current_user_status: responseJson.status})
-        this.determineNav()
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  getCurrentUserStatus(jwt) {
+    return fetch('http://10.0.2.2:3000/api/v1/current_user', {
+      headers: {
+        'Authorization': jwt
+      }
     })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson.status;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   getJwt(access_token) {
     return fetch(("http://10.0.2.2:3000/access_token?code=" + access_token))
     .then((response) => response.json())
     .then((responseJson) => {
-        return responseJson.jwt
+      AsyncStorage.setItem('jwt', responseJson.jwt);
+      return responseJson.jwt
     })
     .catch((error) => {
       console.error(error);
     });
+  }
+
+  setCurrentUser(access_token) {
+    this.getJwt(access_token)
+    .then((jwt) => this.getCurrentUserStatus(jwt))
+    .then((status) => this.determineNav(status))
   }
 
   render() {

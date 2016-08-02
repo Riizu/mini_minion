@@ -27,10 +27,10 @@ class MiniMinionClient extends Component {
    switch (route.id) {
      case 'initial':
        return (<InitialScene navigator={navigator}/>);
-     case 'minion':
-       return (<MinionScene navigator={navigator}/>);
      case 'create':
        return (<CreateMinionScene navigator={navigator}/>);
+     case 'minion':
+       return (<MinionScene navigator={navigator}/>);
    }
  }
 }

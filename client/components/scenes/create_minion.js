@@ -16,6 +16,12 @@ export default class CreateMinionScene extends Component {
     }
   }
 
+  navMinion() {
+    this.props.navigator.push({
+      id: 'minion'
+    })
+  }
+
   createMinion() {
     fetch('http://10.0.2.2:3000/api/v1/minion', {
       method: 'POST',
@@ -28,14 +34,15 @@ export default class CreateMinionScene extends Component {
     })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     AsyncStorage.getItem("jwt").then((value) => {
       this.setState({jwt: value})
     })
   }
 
-  onSubmitEdit() {
+  onSubmitMinion() {
     this.createMinion()
+    this.navMinion()
   }
 
   render() {
@@ -47,11 +54,7 @@ export default class CreateMinionScene extends Component {
           style={{height: 40}}
           placeholder="Enter Name Here"
           onChangeText={(text) => this.setState({name: text})}
-          onSumbitEditing={this.onSubmitEdit()}
         />
-        <TouchableHighlight onPress={this.onSubmitEdit()}>
-          <Text>Submit</Text>
-        </TouchableHighlight>
       </View>
     )
   }

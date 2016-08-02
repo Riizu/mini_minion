@@ -7,7 +7,6 @@ import {
   AsyncStorage
 } from 'react-native';
 
-
 export default class MinionScene extends Component {
   constructor(props) {
     super(props);
