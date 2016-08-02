@@ -17,6 +17,9 @@ var MiniMinionClient = require('../index.android');
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      jwt: ""
+    }
   }
 
   determineNav(status) {
@@ -27,9 +30,10 @@ class Login extends Component {
     }
   }
 
-  navMinion() {
+  navMinion(jwt) {
     this.props.navigator.push({
-      id: 'minion'
+      id: 'minion',
+      jwt: this.state.jwt
     })
   }
 
@@ -59,6 +63,7 @@ class Login extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       AsyncStorage.setItem('jwt', responseJson.jwt);
+      this.setState({jwt: responseJson.jwt})
       return responseJson.jwt
     })
     .catch((error) => {
