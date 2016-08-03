@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe MatchService do
   it "can pull a match list for a given summoner", :vcr do
     ms = MatchService.new
+    time = Time.new(2016, 1, 1)
 
-    matchlist = ms.find_matchlist(20257398)
+    matchlist = ms.find_matchlist(20257398, time)
     first_match = matchlist[0]
 
     expect(first_match["region"]).to eq "NA"

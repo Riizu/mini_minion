@@ -37,4 +37,12 @@ RSpec.describe User, type: :model do
     expect(user.uid).to eq ("1")
     expect(user.name).to eq ("test")
   end
+
+  it "finds matches using the user's summoner data that are after the last pull date", :vcr do
+    user = create(:user, :with_summoner, last_pull: Time.now)
+
+    result = user.get_matches
+
+    expect(result.count).to eq 1
+  end
 end
