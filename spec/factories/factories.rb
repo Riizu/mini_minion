@@ -23,6 +23,7 @@ FactoryGirl.define do
   end
 
   factory :summoner do
+    id 20257398
     name
     profile_icon_id 123
     level 1

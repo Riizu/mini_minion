@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
     @@ss_service ||= SummonerService.new
   end
 
+  def match_service
+    @@ms_service ||= MatchService.new
+  end
+
   def self.login_with_facebook(access_token)
     uid = facebook_service.get_uid(access_token)
     user_result = facebook_service.get_user(uid, access_token)
@@ -39,5 +43,13 @@ class User < ActiveRecord::Base
                     profile_icon_id: hash["profileIconId"],
                     level: hash["summonerLevel"],
                     user_id: self.id)
+  end
+
+  def get_matchlist
+    match_service.find_matchlist(summoner.id, last_match_pull)
+  end
+
+  def get_matches
+    # match_list =
   end
 end
