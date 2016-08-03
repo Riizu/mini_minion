@@ -39,7 +39,7 @@ FactoryGirl.define do
     region "MyString"
     platform_id "MyString"
     mode "MyString"
-    type ""
+    match_type ""
     creation 1
     duration 1
     queue_type "MyString"

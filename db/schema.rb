@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803154449) do
+ActiveRecord::Schema.define(version: 20160803203006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20160803154449) do
     t.string   "region"
     t.string   "platform_id"
     t.string   "mode"
-    t.string   "type"
-    t.integer  "creation"
-    t.integer  "duration"
+    t.string   "match_type"
+    t.string   "creation"
+    t.string   "duration"
     t.string   "queue_type"
     t.integer  "map_id"
     t.string   "season"
