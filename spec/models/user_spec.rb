@@ -43,10 +43,10 @@ RSpec.describe User, type: :model do
     expect(user_last_match_pull).to eq expected_match_pull
   end
 
-  it "finds matchlists that are after the last_match_pull date", :vcr do
+  it "finds ranked matchlists that are after the last_match_pull date", :vcr do
     user = create(:user, :with_summoner, last_match_pull: Time.new(2016, 1, 1))
 
-    results = user.get_matchlist
+    results = user.get_ranked_matchlist
 
     expect(results.count).to eq 1
     expect(results[0]["matchId"]).to eq 2082171522

@@ -45,16 +45,20 @@ class User < ActiveRecord::Base
                     user_id: self.id)
   end
 
-  def get_matchlist
-    match_service.find_matchlist(summoner.id, last_match_pull)
+  def get_matches
+    get_ranked_matches
   end
 
-  def get_matches
-    matchlist = get_matchlist
+  def get_ranked_matchlist
+    match_service.find_ranked_matchlist(summoner.id, last_match_pull)
+  end
+
+  def get_ranked_matches
+    matchlist = get_ranked_matchlist
     update_attributes(last_match_pull: Time.now)
 
     matchlist.map do |match|
-      match_hash = match_service.find_match(match["matchId"])
+      match_hash = match_service.find_ranked_match(match["matchId"])
       new_match = Match.create_from_service(match_hash, summoner)
       summoner.matches << new_match
       new_match

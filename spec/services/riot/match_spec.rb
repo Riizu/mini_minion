@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe MatchService do
-  it "can pull a match list for a given summoner", :vcr do
+  it "can pull a ranked match list for a given summoner", :vcr do
     ms = MatchService.new
     time = Time.new(2016, 1, 1)
 
-    matchlist = ms.find_matchlist(20257398, time)
+    matchlist = ms.find_ranked_matchlist(20257398, time)
     first_match = matchlist[0]
 
     expect(first_match["region"]).to eq "NA"
@@ -19,10 +19,10 @@ RSpec.describe MatchService do
     expect(first_match["role"]).to eq "NONE"
   end
 
-  it "can pull a match by match ID", :vcr do
+  it "can pull a ranked match by match ID", :vcr do
     ms = MatchService.new
 
-    match = ms.find_match(2082171522)
+    match = ms.find_ranked_match(2082171522)
 
     expect(match["matchId"]).to eq 2082171522
     expect(match["region"]).to eq "NA"
