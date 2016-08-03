@@ -58,8 +58,19 @@ RSpec.describe User, type: :model do
     results = user.get_matches
     stored_match = user.summoner.matches.first
 
+
     expect(results.count).to eq 1
     expect(results[0].id).to eq 2082171522
     expect(stored_match.id).to eq 2082171522
+  end
+
+  it "updates last_match_pull after finding matches", :vcr do
+    user = create(:user, :with_summoner, last_match_pull: Time.new(2016, 1, 1))
+
+    user.get_matches
+    actual_match_pull = user.last_match_pull.strftime("%Y%m%d")
+    expected_match_pull = Time.now.strftime("%Y%m%d")
+
+    expect(actual_match_pull).to eq expected_match_pull
   end
 end

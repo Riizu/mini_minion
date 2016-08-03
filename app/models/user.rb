@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
 
   def get_matches
     matchlist = get_matchlist
+    update_attributes(last_match_pull: Time.now)
 
     matchlist.map do |match|
       match_hash = match_service.find_match(match["matchId"])
