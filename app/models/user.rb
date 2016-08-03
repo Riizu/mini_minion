@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   validates :uid, presence: true, uniqueness: true
   validates :name, presence: true
   validates :status, presence: true
+  validates :last_match_pull, presence: true
 
   has_one :minion
   has_one :summoner
@@ -19,7 +20,12 @@ class User < ActiveRecord::Base
   def self.login_with_facebook(access_token)
     uid = facebook_service.get_uid(access_token)
     user_result = facebook_service.get_user(uid, access_token)
-    User.find_or_create_by(uid: user_result["id"]) {|u| u.name = user_result["name"]}
+    user = User.find_or_create_by(uid: user_result["id"]) do |u|
+      u.name = user_result["name"]
+      u.last_match_pull = Time.now
+    end
+
+    return user if user.valid?
   end
 
   def generate_jwt

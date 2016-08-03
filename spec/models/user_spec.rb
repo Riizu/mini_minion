@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:uid) }
   it { should validate_presence_of(:status) }
+  it { should validate_presence_of(:last_match_pull) }
 
   it { should have_one(:minion) }
   it { should have_one(:summoner) }
@@ -33,16 +34,23 @@ RSpec.describe User, type: :model do
     example_access_token = "12415iwefjsldkfhajshr23p5io;klj;alkdf"
 
     user = User.login_with_facebook(example_access_token)
+    user_last_match_pull = user.last_match_pull.strftime("%Y%m%d")
+    expected_match_pull = Time.now.strftime("%Y%m%d")
 
+    expect(user).to eq User.first
     expect(user.uid).to eq ("1")
     expect(user.name).to eq ("test")
+    expect(user_last_match_pull).to eq expected_match_pull
   end
 
   it "finds matches using the user's summoner data that are after the last pull date", :vcr do
-    user = create(:user, :with_summoner, last_pull: Time.now)
+    user = create(:user, :with_summoner, last_match_pull: Time.new(2016, 1, 1))
 
-    result = user.get_matches
+    results = user.get_matches
+    stored_match = user.matches.first
 
-    expect(result.count).to eq 1
+    expect(results.count).to eq 1
+    expect(results[0].id).to eq 2082171522
+    expect(stored_match.id).to eq 2082171522
   end
 end
