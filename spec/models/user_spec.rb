@@ -56,7 +56,7 @@ RSpec.describe User, type: :model do
     user = create(:user, :with_summoner, last_match_pull: Time.new(2016, 1, 1))
 
     results = user.get_matches
-    stored_match = user.matches.first
+    stored_match = user.summoner.matches.first
 
     expect(results.count).to eq 1
     expect(results[0].id).to eq 2082171522

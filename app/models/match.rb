@@ -6,7 +6,7 @@ class Match < ApplicationRecord
   serialize :blue_team
   serialize :red_team
 
-  def self.create_from_service(hash)
+  def self.create_from_service(hash, summoner=nil)
     Match.create(
       id:           hash["matchId"],
       region:       hash["region"],

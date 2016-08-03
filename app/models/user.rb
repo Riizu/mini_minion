@@ -50,6 +50,13 @@ class User < ActiveRecord::Base
   end
 
   def get_matches
-    # match_list =
+    matchlist = get_matchlist
+
+    matchlist.map do |match|
+      match_hash = match_service.find_match(match["matchId"])
+      new_match = Match.create_from_service(match_hash, summoner)
+      summoner.matches << new_match
+      new_match
+    end
   end
 end
