@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   validates :uid, presence: true, uniqueness: true
   validates :name, presence: true
   validates :status, presence: true
+  validates :last_match_pull, presence: true
 
   has_one :minion
   has_one :summoner
@@ -16,10 +17,19 @@ class User < ActiveRecord::Base
     @@ss_service ||= SummonerService.new
   end
 
+  def match_service
+    @@ms_service ||= MatchService.new
+  end
+
   def self.login_with_facebook(access_token)
     uid = facebook_service.get_uid(access_token)
     user_result = facebook_service.get_user(uid, access_token)
-    User.find_or_create_by(uid: user_result["id"]) {|u| u.name = user_result["name"]}
+    user = User.find_or_create_by(uid: user_result["id"]) do |u|
+      u.name = user_result["name"]
+      u.last_match_pull = Time.now
+    end
+
+    return user if user.valid?
   end
 
   def generate_jwt
@@ -33,5 +43,25 @@ class User < ActiveRecord::Base
                     profile_icon_id: hash["profileIconId"],
                     level: hash["summonerLevel"],
                     user_id: self.id)
+  end
+
+  def get_matches
+    get_ranked_matches
+  end
+
+  def get_ranked_matchlist
+    match_service.find_ranked_matchlist(summoner.id, last_match_pull)
+  end
+
+  def get_ranked_matches
+    matchlist = get_ranked_matchlist
+    update_attributes(last_match_pull: Time.now)
+
+    matchlist.map do |match|
+      match_hash = match_service.find_ranked_match(match["matchId"])
+      new_match = Match.create_from_service(match_hash, summoner)
+      summoner.matches << new_match
+      new_match
+    end
   end
 end
