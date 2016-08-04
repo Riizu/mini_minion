@@ -111,6 +111,7 @@ GEM
     multipart-post (2.0.0)
     mustermann (0.4.0)
       tool (~> 0.2)
+    newrelic_rpm (3.16.0.318)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -216,6 +217,7 @@ DEPENDENCIES
   figaro
   jwt
   listen (~> 3.0.5)
+  newrelic_rpm
   pg (~> 0.18)
   puma (~> 3.0)
   rack-protection (~> 2.0)!

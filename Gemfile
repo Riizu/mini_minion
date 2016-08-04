@@ -10,6 +10,7 @@ gem 'jwt'
 gem 'sidekiq'
 gem 'rack-protection', '~> 2.0', github: 'sinatra/rack-protection', require: false
 gem 'sinatra', github: 'sinatra'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'byebug', platform: :mri
