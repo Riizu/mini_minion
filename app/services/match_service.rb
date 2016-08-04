@@ -1,15 +1,19 @@
 class MatchService < RiotService
   def find_ranked_matchlist(summoner_id, time)
+    handle_limits
     response = connection.get("na/v2.2/matchlist/by-summoner/#{summoner_id}") do |req|
       req.params['rankedQueues'] = "TEAM_BUILDER_DRAFT_RANKED_5x5"
       req.params['seasons'] = "SEASON2016"
       req.params['beginTime'] = time.to_i
     end
+    update_rate_limit(response.headers["x-rate-limit-count"])
     parse(response)["matches"]
   end
 
   def find_ranked_match(match_id)
+    handle_limits
     response = connection.get("na/v2.2/match/#{match_id}")
+    update_rate_limit(response.headers["x-rate-limit-count"])
     parse(response)
     parsed_response = parse(response)
     partial_parse = format_ranked_participants(parsed_response)

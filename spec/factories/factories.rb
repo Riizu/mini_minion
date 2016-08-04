@@ -27,6 +27,11 @@ FactoryGirl.define do
     user
   end
 
+  factory :rate_limit do
+    name
+    limit "1:10,1:600"
+  end
+
   factory :summoner do
     id 20257398
     name
