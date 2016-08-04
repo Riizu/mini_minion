@@ -43,10 +43,16 @@ class User < ActiveRecord::Base
     minion.check_for_level_up
     minion.check_hunger
     minion.check_spectator_happiness
+    minion
   end
 
   def get_matches
-    get_ranked_matches
+    if summoner.matches.count > 0
+      threshold_time = summoner.matches.last.created_at
+      get_ranked_matches.select {|match| match.created_at > threshold_time }
+    else
+      get_ranked_matches
+    end
   end
 
   def get_ranked_matchlist
