@@ -15,9 +15,7 @@ Rails.application.routes.draw do
 
       get 'current_user', to: "current_user#index"
 
-      namespace :minion do
-        resources :update, only: [:index]
-      end
+      get 'minion/update', to: "minion/update#index"
     end
   end
 end
