@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
   match '*all', to: "application#preflight", via: [:options]
 
   get 'request_token', to: "token#request_token"
