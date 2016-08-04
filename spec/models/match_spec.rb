@@ -7,7 +7,7 @@ RSpec.describe Match, type: :model do
     ms = MatchService.new
     match_hash = ms.find_ranked_match(2082171522)
 
-    result = Match.create_from_service(match_hash)
+    result = Match.create_from_service(match_hash["matchId"], match_hash)
     stored_match = Match.first
 
     expect(result).to eq stored_match

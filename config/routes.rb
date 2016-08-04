@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get 'current_user', to: "current_user#index"
 
       get 'minion/update', to: "minion/update#index"
+      get 'minion/feed', to: "minion/feed#index"
     end
   end
 end

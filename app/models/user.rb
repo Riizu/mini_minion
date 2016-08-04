@@ -64,10 +64,18 @@ class User < ActiveRecord::Base
     update_attributes(last_match_pull: Time.now)
 
     matchlist.map do |match|
-      match_hash = match_service.find_ranked_match(match["matchId"])
-      new_match = Match.create_from_service(match_hash, summoner)
+      new_match = get_next_match(match["matchId"])
       summoner.matches << new_match
       new_match
+    end
+  end
+
+  def get_next_match(match_id)
+    if Match.exists?(match_id)
+      Match.find(match_id)
+    else
+      match_hash = match_service.find_ranked_match(match_id)
+      Match.create_from_service(match_id, match_hash, summoner)
     end
   end
 
