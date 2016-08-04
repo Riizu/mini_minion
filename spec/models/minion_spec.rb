@@ -34,6 +34,7 @@ RSpec.describe Minion, type: :model do
     expect(minion.total_health).to eq expected_hp
     expect(minion.total_happiness).to eq previous_total_happiness
     expect(minion.total_stamina).to eq previous_total_stamina
+    expect(minion.level).to eq 2
   end
 
   it "Should be able to take an action" do
