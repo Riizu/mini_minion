@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   validates :uid, presence: true, uniqueness: true
   validates :name, presence: true
   validates :status, presence: true
+  validates :last_match_pull, presence: true
 
   has_one :minion
   has_one :summoner
@@ -16,15 +17,66 @@ class User < ActiveRecord::Base
     @@ss_service ||= SummonerService.new
   end
 
+  def match_service
+    @@ms_service ||= MatchService.new
+  end
+
   def self.login_with_facebook(access_token)
     uid = facebook_service.get_uid(access_token)
     user_result = facebook_service.get_user(uid, access_token)
-    User.find_or_create_by(uid: user_result["id"]) {|u| u.name = user_result["name"]}
+    user = User.find_or_create_by(uid: user_result["id"]) do |u|
+      u.name = user_result["name"]
+      u.last_match_pull = Time.now
+    end
+
+    return user if user.valid?
   end
 
   def generate_jwt
     JWT.encode({uid: self.uid, exp: 1.day.from_now.to_i},
                 Rails.application.secrets.secret_key_base)
+  end
+
+  def update_minion
+    matches = get_matches
+    minion.assign_xp(matches.count)
+    minion.check_for_level_up
+    minion.check_hunger
+    minion.check_spectator_happiness
+    minion
+  end
+
+  def get_matches
+    if summoner.matches.count > 0
+      threshold_time = summoner.matches.last.created_at
+      get_ranked_matches.select {|match| match.created_at > threshold_time }
+    else
+      get_ranked_matches
+    end
+  end
+
+  def get_ranked_matchlist
+    match_service.find_ranked_matchlist(summoner.id, last_match_pull)
+  end
+
+  def get_ranked_matches
+    matchlist = get_ranked_matchlist
+    update_attributes(last_match_pull: Time.now)
+
+    matchlist.map do |match|
+      new_match = get_next_match(match["matchId"])
+      summoner.matches << new_match
+      new_match
+    end
+  end
+
+  def get_next_match(match_id)
+    if Match.exists?(match_id)
+      Match.find(match_id)
+    else
+      match_hash = match_service.find_ranked_match(match_id)
+      Match.create_from_service(match_id, match_hash, summoner)
+    end
   end
 
   def add_summoner(summoner_name)

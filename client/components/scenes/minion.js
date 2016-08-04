@@ -37,7 +37,7 @@ export default class MinionScene extends Component {
   }
 
   getMinion(jwt) {
-    return fetch('http://10.0.2.2:3000/api/v1/minion', {
+    return fetch('http://mini-minion.herokuapp.com/api/v1/minion', {
       headers: {
         'Authorization': jwt
       }
@@ -70,7 +70,7 @@ export default class MinionScene extends Component {
         <Text>Health: {this.state.current_health}/{this.state.total_health}</Text>
         <Text>Stamina: {this.state.current_stamina}/{this.state.total_stamina}</Text>
         <Text>Happiness: {this.state.current_happiness}/{this.state.total_happiness}</Text>
-        <ActionModal/>
+        <ActionModal jwt={this.props.jwt} parent={this}/>
       </View>
     )
   }

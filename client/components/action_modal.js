@@ -20,6 +20,46 @@ class ActionModal extends Component {
     this.setState({modalVisible: visible});
   }
 
+  updateMinion() {
+    fetch('http://mini-minion.herokuapp.com/api/v1/minion/update', {
+      headers: {
+        'Authorization': this.props.jwt
+      }
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.props.parent.setState({
+        name: responseJson.name,
+        level: responseJson.level,
+        xp: responseJson.xp,
+        current_health: responseJson.current_health,
+        current_stamina: responseJson.current_stamina,
+        current_happiness: responseJson.current_happiness,
+        total_health: responseJson.total_health,
+        total_stamina: responseJson.total_stamina,
+        total_happiness: responseJson.total_happiness
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  feedMinion() {
+    fetch('http://mini-minion.herokuapp.com/api/v1/minion/feed', {
+      headers: {
+        'Authorization': this.props.jwt
+      }
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.updateMinion()
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
 
   render() {
     return (
@@ -32,7 +72,17 @@ class ActionModal extends Component {
         >
        <View style={{marginTop: 22}}>
         <View>
-          <Text>Hello World!</Text>
+          <TouchableHighlight onPress={() => {
+            this.updateMinion();
+          }}>
+            <Text>Update Minion Data</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight onPress={() => {
+            this.feedMinion();
+          }}>
+            <Text>Feed Minion</Text>
+          </TouchableHighlight>
 
           <TouchableHighlight onPress={() => {
             this.setModalVisible(!this.state.modalVisible)

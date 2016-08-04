@@ -26,7 +26,7 @@ export default class CreateMinionScene extends Component {
   }
 
   createMinion() {
-    return fetch('http://10.0.2.2:3000/api/v1/minion?name=' + this.state.name + '&summoner_name=' + this.state.summoner_name,  {
+    return fetch('http://mini-minion.herokuapp.com/api/v1/minion?name=' + this.state.name + '&summoner_name=' + this.state.summoner_name,  {
       method: 'POST',
       headers: {
         'Authorization': this.state.jwt,

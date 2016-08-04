@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/20257398?api_key=RGAPI-4EF5513C-5773-4410-BA21-765591E3FA3E&beginTime=1453248000&rankedQueues=TEAM_BUILDER_DRAFT_RANKED_5x5&seasons=SEASON2016
+    uri: https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/20257398?api_key=RGAPI-4EF5513C-5773-4410-BA21-765591E3FA3E&beginTime=1451631600&rankedQueues=TEAM_BUILDER_DRAFT_RANKED_5x5&seasons=SEASON2016
     body:
       encoding: US-ASCII
       string: ''
@@ -27,13 +27,13 @@ http_interactions:
       Content-Type:
       - application/json;charset=utf-8
       Date:
-      - Tue, 02 Aug 2016 21:40:16 GMT
+      - Thu, 04 Aug 2016 01:36:26 GMT
       Vary:
       - Accept-Encoding, User-Agent
       X-Newrelic-App-Data:
-      - PxQFWFFSDwQTUVVSBQYBVkYdFGQHBDcQUQxLA1tMXV1dORYzVBBGBxdCdhUSEVFRRRAEPhhQRw84HlpcDjpMDFE+FxQKFgZuHAhYFVIJXwsXQmtOBBoVQEUJDA1ZVEU6S0JDXg8JDQdCK1xAFAgaAh9VF1AHVgVXVQQDTUtSFBEBV1EBAFJVUFJUBApVVAIBEk5eA1RLUW8=
+      - PxQFWFFSDwQTUVVSBQYBVkYdFGQHBDcQUQxLA1tMXV1dORYzVBBGBxdCdhUSEVFRRRAEPhhQRw84HlpcDjpMDFE+FxQKFgZuHAhYFVIJXwsXQmtOBBoVQEUJDA1ZVEU6S0JDXg8JDQdCK1xAFAgaAh9VF1EFVwZTVAYAVUpOCR8SUldTVgMDUlxQBVJXVAdTCUAUBFlUR1du
       X-Rate-Limit-Count:
-      - 1:10,1:600
+      - 1:10,6:600
       Transfer-Encoding:
       - chunked
       Connection:
@@ -42,5 +42,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"matches":[{"region":"NA","platformId":"NA1","matchId":2082171522,"champion":33,"queue":"TEAM_BUILDER_DRAFT_RANKED_5x5","season":"SEASON2016","timestamp":1454047672406,"lane":"JUNGLE","role":"NONE"}],"startIndex":0,"endIndex":1,"totalGames":1}'
     http_version: 
-  recorded_at: Tue, 02 Aug 2016 21:40:16 GMT
+  recorded_at: Thu, 04 Aug 2016 01:36:26 GMT
 recorded_with: VCR 3.0.3

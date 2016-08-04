@@ -7,7 +7,8 @@ class Minion < ActiveRecord::Base
 
   def level_up
     new_health = calculate_new_health
-    update_attributes(total_health: new_health)
+    new_level = level + 1
+    update_attributes(total_health: new_health, level: new_level)
   end
 
   def take_action(action_name)
@@ -31,7 +32,46 @@ class Minion < ActiveRecord::Base
     end
   end
 
+  def assign_xp(num_matches)
+    new_xp = calculate_xp(num_matches)
+    update_attributes(xp: new_xp)
+  end
+
+  def level_up?
+    return true if xp == (level * 10000)
+    false
+  end
+
+  def check_for_level_up
+    if level_up?
+      level_up
+    end
+  end
+
+  def check_spectator_happiness
+    if !valid_wait_time_since_last_match?
+      new_happiness = current_happiness - 20
+      update_attributes(current_happiness: new_happiness)
+    end
+  end
+
+  def valid_wait_time_since_last_match?
+    if user.last_match_pull > Time.now - 1.day
+      true
+    else
+      false
+    end
+  end
+
   private
+    def calculate_xp(num_matches)
+      new_xp = (num_matches * 1000) + xp
+      if new_xp > (level * 10000)
+        new_xp = (level * 10000)
+      end
+      new_xp
+    end
+
     def not_full
       self.current_health != self.total_health
     end

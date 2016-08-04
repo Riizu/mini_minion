@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:uid) }
   it { should validate_presence_of(:status) }
+  it { should validate_presence_of(:last_match_pull) }
 
   it { should have_one(:minion) }
   it { should have_one(:summoner) }
@@ -33,10 +34,13 @@ RSpec.describe User, type: :model do
     example_access_token = "12415iwefjsldkfhajshr23p5io;klj;alkdf"
 
     user = User.login_with_facebook(example_access_token)
+    user_last_match_pull = user.last_match_pull.strftime("%Y%m%d")
+    expected_match_pull = Time.now.strftime("%Y%m%d")
 
     user_last_match_pull = user.last_match_pull.strftime("%Y%m%d")
     expected_match_pull = Time.new(2016,8,4).strftime("%Y%m%d")
 
+    expect(user).to eq User.first
     expect(user.uid).to eq ("1")
     expect(user.name).to eq ("test")
     expect(user_last_match_pull).to eq expected_match_pull
@@ -71,5 +75,16 @@ RSpec.describe User, type: :model do
     expected_match_pull = Time.new(2016,8,4).strftime("%Y%m%d")
 
     expect(actual_match_pull).to eq expected_match_pull
+  end
+
+  it "updates its minion", :vcr do
+    user = create(:user, :with_summoner, :with_minion)
+    user.update_attributes(last_match_pull: Time.new(2016, 1, 1))
+    user.update_minion
+
+    expect(user.minion.current_health).to eq 150
+    expect(user.minion.current_happiness).to eq 100
+    expect(user.minion.current_stamina).to eq 100
+    expect(user.minion.xp).to eq 1000
   end
 end
