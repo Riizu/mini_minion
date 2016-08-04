@@ -7,6 +7,9 @@ gem 'figaro'
 gem 'faraday'
 gem "active_model_serializers", github: "rails-api/active_model_serializers"
 gem 'jwt'
+gem 'sidekiq'
+gem 'rack-protection', '~> 2.0', github: 'sinatra/rack-protection', require: false
+gem 'sinatra', github: 'sinatra'
 
 group :development, :test do
   gem 'byebug', platform: :mri
