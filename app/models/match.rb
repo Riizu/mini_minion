@@ -6,23 +6,10 @@ class Match < ApplicationRecord
   serialize :blue_team
   serialize :red_team
 
-  def self.create_from_service(hash, summoner=nil)
-    Match.create(
-      id:           hash["matchId"],
-      region:       hash["region"],
-      platform_id:  hash["platformId"],
-      mode:         hash["matchMode"],
-      match_type:   hash["matchType"],
-      creation:     hash["matchCreation"],
-      duration:     hash["matchDuration"],
-      queue_type:   hash["queueType"],
-      map_id:       hash["mapId"],
-      season:       hash["season"],
-      version:      hash["matchVersion"],
-      participants: hash["participants"],
-      blue_team:    hash["blueTeam"],
-      red_team:     hash["redTeam"]
-    )
+  def participants
+    self[:participants].map do |participant|
+      Participant.new(participant)
+    end
   end
 
   def blue_team
