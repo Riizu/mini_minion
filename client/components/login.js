@@ -44,7 +44,7 @@ class Login extends Component {
   }
 
   getCurrentUserStatus(jwt) {
-    return fetch('http://10.0.2.2:3000/api/v1/current_user', {
+    return fetch('http://mini-minion.herokuapp.com/api/v1/current_user', {
       headers: {
         'Authorization': jwt
       }
@@ -59,7 +59,7 @@ class Login extends Component {
   }
 
   getJwt(access_token) {
-    return fetch(("http://10.0.2.2:3000/access_token?code=" + access_token))
+    return fetch(("http://mini-minion.herokuapp.com/access_token?code=" + access_token))
     .then((response) => response.json())
     .then((responseJson) => {
       AsyncStorage.setItem('jwt', responseJson.jwt);

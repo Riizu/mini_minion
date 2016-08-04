@@ -15,7 +15,7 @@ class Status extends Component {
   }
 
   getStatus() {
-    fetch('http://10.0.2.2:3000/api/v1/status.json')
+    fetch('http://mini-minion.herokuapp.com/api/v1/status.json')
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({

@@ -37,7 +37,7 @@ export default class MinionScene extends Component {
   }
 
   getMinion(jwt) {
-    return fetch('http://10.0.2.2:3000/api/v1/minion', {
+    return fetch('http://mini-minion.herokuapp.com/api/v1/minion', {
       headers: {
         'Authorization': jwt
       }

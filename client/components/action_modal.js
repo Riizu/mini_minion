@@ -21,7 +21,7 @@ class ActionModal extends Component {
   }
 
   updateMinion() {
-    fetch('http://10.0.2.2:3000/api/v1/minion/update', {
+    fetch('http://mini-minion.herokuapp.com/api/v1/minion/update', {
       headers: {
         'Authorization': this.props.jwt
       }
