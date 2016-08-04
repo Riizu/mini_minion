@@ -45,6 +45,21 @@ class ActionModal extends Component {
     });
   }
 
+  feedMinion() {
+    fetch('http://mini-minion.herokuapp.com/api/v1/minion/feed', {
+      headers: {
+        'Authorization': this.props.jwt
+      }
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.updateMinion()
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
 
   render() {
     return (
@@ -61,6 +76,12 @@ class ActionModal extends Component {
             this.updateMinion();
           }}>
             <Text>Update Minion Data</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight onPress={() => {
+            this.feedMinion();
+          }}>
+            <Text>Feed Minion</Text>
           </TouchableHighlight>
 
           <TouchableHighlight onPress={() => {
