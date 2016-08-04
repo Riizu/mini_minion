@@ -147,4 +147,34 @@ RSpec.describe Minion, type: :model do
 
     expect(minion.level).to eq 1
   end
+
+  it "Should check the time since it last pulled new games and return true if under 1 day" do
+    minion = create(:minion)
+    result = minion.valid_wait_time_since_last_match?
+
+    expect(result).to eq true
+  end
+
+  it "Should check the time since it last pulled new games and return false if over 1 day" do
+    minion = create(:minion)
+    minion.user.update_attributes(last_match_pull: (Time.now - 2.days))
+    result = minion.valid_wait_time_since_last_match?
+
+    expect(result).to eq false
+  end
+
+  it "Should check spectator happiness and adjust negatively if its been too long" do
+    minion = create(:minion)
+    minion.user.update_attributes(last_match_pull: (Time.now - 2.days))
+    minion.check_spectator_happiness
+
+    expect(minion.current_happiness).to eq minion.total_happiness - 20
+  end
+
+  it "Should check spectator happiness and not adjust if its within the time limit" do
+    minion = create(:minion)
+    minion.check_spectator_happiness
+
+    expect(minion.current_happiness).to eq minion.total_happiness
+  end
 end

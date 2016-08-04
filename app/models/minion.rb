@@ -48,6 +48,21 @@ class Minion < ActiveRecord::Base
     end
   end
 
+  def check_spectator_happiness
+    if !valid_wait_time_since_last_match?
+      new_happiness = current_happiness - 20
+      update_attributes(current_happiness: new_happiness)
+    end
+  end
+
+  def valid_wait_time_since_last_match?
+    if user.last_match_pull > Time.now - 1.day
+      true
+    else
+      false
+    end
+  end
+
   private
     def calculate_xp(num_matches)
       new_xp = (num_matches * 1000) + xp
