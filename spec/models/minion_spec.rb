@@ -96,4 +96,25 @@ RSpec.describe Minion, type: :model do
 
     expect(minion.current_happiness).to eq 100
   end
+
+  it "Should assign xp based on match and count current level" do
+    minion = create(:minion)
+    minion.assign_xp(5)
+
+    expect(minion.xp).to eq 5000
+  end
+
+  it "Should not assign xp past 10,000 times your level" do
+    minion = create(:minion)
+    minion.assign_xp(11)
+
+    expect(minion.xp).to eq 10000
+  end
+
+  it "Should not include previous xp when assigning more" do
+    minion = create(:minion, xp: 1000)
+    minion.assign_xp(5)
+
+    expect(minion.xp).to eq 6000
+  end
 end

@@ -31,7 +31,20 @@ class Minion < ActiveRecord::Base
     end
   end
 
+  def assign_xp(num_matches)
+    new_xp = calculate_xp(num_matches)
+    update_attributes(xp: new_xp)
+  end
+
   private
+    def calculate_xp(num_matches)
+      new_xp = (num_matches * 1000) + xp
+      if new_xp > (level * 10000)
+        new_xp = (level * 10000)
+      end
+      new_xp
+    end
+
     def not_full
       self.current_health != self.total_health
     end
