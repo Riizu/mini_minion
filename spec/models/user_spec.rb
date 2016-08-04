@@ -76,4 +76,15 @@ RSpec.describe User, type: :model do
 
     expect(actual_match_pull).to eq expected_match_pull
   end
+
+  it "updates its minion", :vcr do
+    user = create(:user, :with_summoner, :with_minion)
+    user.update_attributes(last_match_pull: Time.new(2016, 1, 1))
+    user.update_minion
+
+    expect(user.minion.current_health).to eq 150
+    expect(user.minion.current_happiness).to eq 100
+    expect(user.minion.current_stamina).to eq 100
+    expect(user.minion.xp).to eq 1000
+  end
 end

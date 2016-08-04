@@ -37,6 +37,14 @@ class User < ActiveRecord::Base
                 Rails.application.secrets.secret_key_base)
   end
 
+  def update_minion
+    matches = get_matches
+    minion.assign_xp(matches.count)
+    minion.check_for_level_up
+    minion.check_hunger
+    minion.check_spectator_happiness
+  end
+
   def get_matches
     get_ranked_matches
   end
