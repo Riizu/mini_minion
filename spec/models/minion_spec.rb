@@ -22,17 +22,19 @@ RSpec.describe Minion, type: :model do
 
   it "Should have total hp that increases when leveling up" do
     minion = create(:minion)
+    previous_level = minion.level
     previous_total_hp = minion.total_health
     previous_total_stamina = minion.total_stamina
     previous_total_happiness = minion.total_happiness
 
     minion.level_up
-    expected_hp = (previous_total_hp * minion.level) +
+    expected_hp = (previous_total_hp * previous_level) +
                   (previous_total_happiness / 2)
 
     expect(minion.total_health).to eq expected_hp
     expect(minion.total_happiness).to eq previous_total_happiness
     expect(minion.total_stamina).to eq previous_total_stamina
+    expect(minion.level).to eq 2
   end
 
   it "Should be able to take an action" do
@@ -95,5 +97,84 @@ RSpec.describe Minion, type: :model do
     minion.check_hunger
 
     expect(minion.current_happiness).to eq 100
+  end
+
+  it "Should assign xp based on match and count current level" do
+    minion = create(:minion)
+    minion.assign_xp(5)
+
+    expect(minion.xp).to eq 5000
+  end
+
+  it "Should not assign xp past 10,000 times your level" do
+    minion = create(:minion)
+    minion.assign_xp(11)
+
+    expect(minion.xp).to eq 10000
+  end
+
+  it "Should not include previous xp when assigning more" do
+    minion = create(:minion, xp: 1000)
+    minion.assign_xp(5)
+
+    expect(minion.xp).to eq 6000
+  end
+
+  it "Should determine if its time to level up by seeing if xp is 10,000 times your level" do
+    minion = create(:minion, xp: 10000)
+    result = minion.level_up?
+
+    expect(result).to eq true
+  end
+
+  it "Should determine if its not time to level up by seeing if xp is 10,000 times your level" do
+    minion = create(:minion, xp: 9000)
+    result = minion.level_up?
+
+    expect(result).to eq false
+  end
+
+  it "Should check if its time to level up, and level up if so" do
+    minion = create(:minion, xp: 10000)
+    minion.check_for_level_up
+
+    expect(minion.level).to eq 2
+  end
+
+  it "Should check if its time to level up, and not level up if so" do
+    minion = create(:minion, xp: 9000)
+    minion.check_for_level_up
+
+    expect(minion.level).to eq 1
+  end
+
+  it "Should check the time since it last pulled new games and return true if under 1 day" do
+    minion = create(:minion)
+    result = minion.valid_wait_time_since_last_match?
+
+    expect(result).to eq true
+  end
+
+  it "Should check the time since it last pulled new games and return false if over 1 day" do
+    minion = create(:minion)
+    minion.user.update_attributes(last_match_pull: (Time.now - 2.days))
+    result = minion.valid_wait_time_since_last_match?
+
+    expect(result).to eq false
+  end
+
+  it "Should check spectator happiness and adjust negatively if its been too long" do
+    minion = create(:minion)
+    minion.user.update_attributes(last_match_pull: (Time.now - 2.days))
+    minion.check_spectator_happiness
+
+    expect(minion.current_happiness).to eq minion.total_happiness - 20
+  end
+
+  it "Should check spectator happiness and not adjust if its within the time limit" do
+    minion = create(:minion)
+    minion.check_spectator_happiness
+
+    expect(minion.current_happiness).to eq minion.total_happiness
   end
 end

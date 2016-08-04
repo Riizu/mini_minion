@@ -25,6 +25,7 @@ FactoryGirl.define do
   factory :minion do
     name
     user
+    last_ate Time.now
   end
 
   factory :rate_limit do
