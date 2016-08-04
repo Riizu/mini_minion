@@ -12,44 +12,42 @@ class RiotService < BaseService
     parse(response)
   end
 
-  def get_limit_entry
-    RateLimit.find_or_create_by(name: "riot") do |r|
-      r.limit = "1:10,1:600"
-    end
-  end
-
   def handle_limits
     limit_entry = get_limit_entry
     ten_second_check = limit_entry.limit.split(",")[0]
     ten_minute_check = limit_entry.limit.split(",")[1]
 
     if (ten_second_check == "8:10")
-      if ENV['RAILS_ENV'] != "test"
-        puts "at rate limits! Pausing!"
-        sleep(12)
-      else
-        reset_limit("seconds", limit_entry)
-        return true
-      end
-      reset_limit("seconds", limit_entry)
+      handle_overage("seconds", 12)
     end
 
     if (ten_minute_check == "590:600")
-      if ENV['RAILS_ENV'] != "test"
-        puts "at rate limits! Pausing!"
-        sleep(600)
-      else
-        reset_limit("minutes", limit_entry)
-        return true
-      end
-      reset_limit("minutes", limit_entry)
+      handle_overage("minutes", 602)
     end
   end
 
-  def reset_limit(type, limit_entry)
-    if ENV['RAILS_ENV'] == "test"
+  def get_limit_entry
+    RateLimit.find_or_create_by(name: "riot") do |r|
+      r.limit = "1:10,1:600"
+    end
+  end
+
+  def handle_overage(type, time)
+    if ENV['RAILS_ENV'] != "test"
+      pause_call(time)
+    else
       return true
-    elsif type == "seconds"
+    end
+    reset_limit(type, limit_entry)
+  end
+
+  def pause_call(amount)
+    puts "at rate limits! Pausing!"
+    sleep(amount)
+  end
+
+  def reset_limit(type, limit_entry)
+    if type == "seconds"
       minutes = limit_entry.limit.split(",")[1]
       limit_entry.update_attributes(limit: "1:10,#{minutes}")
     elsif type == "minutes"
