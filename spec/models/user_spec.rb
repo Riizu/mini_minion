@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
 
     user = User.login_with_facebook(example_access_token)
     user_last_match_pull = user.last_match_pull.strftime("%Y%m%d")
-    expected_match_pull = Time.now.strftime("%Y%m%d")
+    expected_match_pull = Time.new(2016,8,4).strftime("%Y%m%d")
 
     expect(user).to eq User.first
     expect(user.uid).to eq ("1")
@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
 
     user.get_matches
     actual_match_pull = user.last_match_pull.strftime("%Y%m%d")
-    expected_match_pull = Time.now.strftime("%Y%m%d")
+    expected_match_pull = Time.new(2016,8,4).strftime("%Y%m%d")
 
     expect(actual_match_pull).to eq expected_match_pull
   end
