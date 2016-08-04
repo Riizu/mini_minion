@@ -7,7 +7,8 @@ class Minion < ActiveRecord::Base
 
   def level_up
     new_health = calculate_new_health
-    update_attributes(total_health: new_health)
+    new_level = level + 1
+    update_attributes(total_health: new_health, level: new_level)
   end
 
   def take_action(action_name)
@@ -34,6 +35,17 @@ class Minion < ActiveRecord::Base
   def assign_xp(num_matches)
     new_xp = calculate_xp(num_matches)
     update_attributes(xp: new_xp)
+  end
+
+  def level_up?
+    return true if xp == (level * 10000)
+    false
+  end
+
+  def check_for_level_up
+    if level_up?
+      level_up
+    end
   end
 
   private

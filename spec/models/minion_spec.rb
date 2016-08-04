@@ -22,12 +22,13 @@ RSpec.describe Minion, type: :model do
 
   it "Should have total hp that increases when leveling up" do
     minion = create(:minion)
+    previous_level = minion.level
     previous_total_hp = minion.total_health
     previous_total_stamina = minion.total_stamina
     previous_total_happiness = minion.total_happiness
 
     minion.level_up
-    expected_hp = (previous_total_hp * minion.level) +
+    expected_hp = (previous_total_hp * previous_level) +
                   (previous_total_happiness / 2)
 
     expect(minion.total_health).to eq expected_hp
@@ -116,5 +117,33 @@ RSpec.describe Minion, type: :model do
     minion.assign_xp(5)
 
     expect(minion.xp).to eq 6000
+  end
+
+  it "Should determine if its time to level up by seeing if xp is 10,000 times your level" do
+    minion = create(:minion, xp: 10000)
+    result = minion.level_up?
+
+    expect(result).to eq true
+  end
+
+  it "Should determine if its not time to level up by seeing if xp is 10,000 times your level" do
+    minion = create(:minion, xp: 9000)
+    result = minion.level_up?
+
+    expect(result).to eq false
+  end
+
+  it "Should check if its time to level up, and level up if so" do
+    minion = create(:minion, xp: 10000)
+    minion.check_for_level_up
+
+    expect(minion.level).to eq 2
+  end
+
+  it "Should check if its time to level up, and not level up if so" do
+    minion = create(:minion, xp: 9000)
+    minion.check_for_level_up
+
+    expect(minion.level).to eq 1
   end
 end
