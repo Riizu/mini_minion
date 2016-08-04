@@ -7,12 +7,27 @@ FactoryGirl.define do
     name
     uid
     status 0
+    last_match_pull Time.now
 
     trait :with_minion do
       after :create do |user|
         FactoryGirl.create(:minion, user: user)
       end
     end
+
+    trait :with_summoner do
+      after :create do |user|
+        FactoryGirl.create(:summoner, user_id: user.id)
+      end
+    end
+  end
+
+  factory :summoner do
+    id 20257398
+    name
+    profile_icon_id 123
+    level 1
+    user
   end
 
   factory :minion do
@@ -24,7 +39,7 @@ FactoryGirl.define do
     region "MyString"
     platform_id "MyString"
     mode "MyString"
-    type ""
+    match_type ""
     creation 1
     duration 1
     queue_type "MyString"

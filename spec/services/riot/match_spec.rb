@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe MatchService do
-  it "can pull a match list for a given summoner", :vcr do
+  it "can pull a ranked match list for a given summoner", :vcr do
     ms = MatchService.new
+    time = Time.new(2016, 1, 1)
 
-    matchlist = ms.find_matchlist(20257398)
+    matchlist = ms.find_ranked_matchlist(20257398, time)
     first_match = matchlist[0]
 
     expect(first_match["region"]).to eq "NA"
@@ -18,10 +19,10 @@ RSpec.describe MatchService do
     expect(first_match["role"]).to eq "NONE"
   end
 
-  it "can pull a match by match ID", :vcr do
+  it "can pull a ranked match by match ID", :vcr do
     ms = MatchService.new
 
-    match = ms.find_match(2082171522)
+    match = ms.find_ranked_match(2082171522)
 
     expect(match["matchId"]).to eq 2082171522
     expect(match["region"]).to eq "NA"
@@ -35,7 +36,7 @@ RSpec.describe MatchService do
     expect(match["season"]).to eq "SEASON2016"
     expect(match["matchVersion"]).to eq "6.2.0.238"
     expect(match["participants"].count).to eq 10
-    expect(match["participantIdentities"].count).to eq 10
-    expect(match["teams"].count).to eq 2
+    expect(match["blue_team"]).to eq ({"teamId" => 100,"winner" => false,"firstBlood" => true,"firstTower" => true,"firstInhibitor" => false,"firstBaron" => false,"firstDragon" => false,"firstRiftHerald" => true,"towerKills" => 2,"inhibitorKills" => 0,"baronKills" => 0,"dragonKills" => 0,"riftHeraldKills" => 1,"vilemawKills" => 0,"dominionVictoryScore" => 0})
+    expect(match["red_team"]).to eq ({"teamId" => 200,"winner" => true,"firstBlood" => false,"firstTower" => false,"firstInhibitor" => false,"firstBaron" => false,"firstDragon" => true,"firstRiftHerald" => false,"towerKills" => 5,"inhibitorKills" => 0,"baronKills" => 0,"dragonKills" => 3,"riftHeraldKills" => 0,"vilemawKills" => 0,"dominionVictoryScore" => 0})
   end
 end
